@@ -8,9 +8,9 @@ responsible disclosure.
 
 **Please do not open a public issue for security reports.**
 
-Report privately by **encrypted email to `security@pragmatiqu.io`**. A PGP public key
-is available on request until it is published at https://laravelui5.com/security.
-GitHub *private vulnerability reporting* is also enabled on this repository.
+Report privately by **encrypted email to `security@pragmatiqu.io`**, using the PGP key
+published at https://laravelui5.com/security. GitHub *private vulnerability reporting*
+is also enabled on this repository.
 
 Helpful to include:
 
