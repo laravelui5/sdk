@@ -23,16 +23,16 @@ core under a larger, honestly-labelled body is the goal.
 
 Order is settled; each lands as its own minor.
 
-| Line | Status                                          | Focus                                                                                                                                                                                                              |
-|:---- |:------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **0.16** | ✅&nbsp;**Shipped**:&nbsp;2026&#8209;06&#8209;09 | **Consolidation** – The contract surface has been reviewed end to end. The current line documents it, hardens it, and closes the gaps the review surfaced. No new feature area, a steadier foundation to build on. |
-| **0.17** | 🚧 **Starting**: week 25                        | **Identity & impersonation** — partner-validated authorization, acting-as support, and actor-level parameters (slots). |
-| **0.18** | ⏳ **Waiting**: –                                | **ValueHelp** — the data-binding value-help successor to the global dialog, for search-and-select across your UIs. |
-| **0.19** | ⏳ **Waiting**: –                                | **Settings personalization** — per-user setting overrides, validated end to end against the settings app. |
-| **0.20** | ⏳ **Waiting**: –                                | **SQL Query Layer** — a typed query foundation for reporting and analytics. |
-| **0.21** | ⏳ **Waiting**: –                                | **Reporting API** — parameterized, query-backed reporting surfaces. |
-| **0.22** | ⏳ **Waiting**: –                                | **Analytics API** — analytic tiles and cards with inlined data. |
-| **0.23** | ⏳ **Waiting**: –                                | **Database & runtime assurance** — a multi-database test matrix (incl. a PostgreSQL strictness pass) and a multi-PHP-version run. |
+| Line | Status | Date | Focus  |
+|:---- |:------ |:---- |:------ |
+| **0.16** | ✅&nbsp;**Shipped**  | 2026&#8209;06&#8209;09 | **Consolidation** – The contract surface has been reviewed end to end. The current line documents it, hardens it, and closes the gaps the review surfaced. No new feature area, a steadier foundation to build on. |
+| **0.17** | 🚧 **Started**      | 2026&#8209;06&#8209;10     | **Identity & impersonation** — partner-validated authorization, acting-as support, and actor-level parameters (slots). |
+| **0.18** | ⏳ **Waiting**       | –                           | **ValueHelp** — the data-binding value-help successor to the global dialog, for search-and-select across your UIs. |
+| **0.19** | ⏳ **Waiting**       | –                                | **Settings personalization** — per-user setting overrides, validated end to end against the settings app. |
+| **0.20** | ⏳ **Waiting**       | –                                | **SQL Query Layer** — a typed query foundation for reporting and analytics. |
+| **0.21** | ⏳ **Waiting**       | –                                | **Reporting API** — parameterized, query-backed reporting surfaces. |
+| **0.22** | ⏳ **Waiting**       | –                                | **Analytics API** — analytic tiles and cards with inlined data. |
+| **0.23** | ⏳ **Waiting**       | –                                | **Database & runtime assurance** — a multi-database test matrix (incl. a PostgreSQL strictness pass) and a multi-PHP-version run. |
 
 Alongside these, the companion UI5 apps (Partners, Settings, auth)
 roll out as the surfaces they exercise mature — driving each toward

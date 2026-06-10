@@ -15,6 +15,18 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.0] - 2026-06-10
+
+### Added
+
+- `Customizing\Contracts\CustomizingEntry` — the meta-interface a Customizing attribute class fulfils. Consumers ship their own attributes against it.
+- `SdkRegistry::customizing()` + the `registerCustomizing()` capture pass in `afterLoad()` Pass 1. Intentionally not exported to the registry cache.
+- `Customizing\CustomizingWorker` — the generic flat projection of every declared catalog.
+
+### Changed
+
+- Sync workers relocated into the domains they project. *(Internal relocation: the four worker classes are `@internal`; no public contract changed. In-house consumers only.)*
+
 ## [0.16.29] - 2026-06-07
 
 ### Changed
