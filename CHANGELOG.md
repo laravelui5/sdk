@@ -15,6 +15,19 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.1] - 2026-06-10
+
+The Customizing engine's first real consumer, plus the i18n tooling that pairs with it.
+
+### Added
+
+- `Partners\Attributes\PartnerRole`
+- `Partners\Attributes\RelationshipType`
+- `Partners\Enums\PartnerRoleCode`
+- `Partners\Enums\RelationshipTypeCode`
+- `ui5:i18n` command — expands the i18n keys for the synced Customizing catalogs
+  into a base `.properties` bundle.
+
 ## [0.17.0] - 2026-06-10
 
 ### Added
