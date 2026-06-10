@@ -34,7 +34,7 @@ Order is settled; each lands as its own minor.
 | **0.22** | ⏳ **Waiting**: –                                | **Analytics API** — analytic tiles and cards with inlined data. |
 | **0.23** | ⏳ **Waiting**: –                                | **Database & runtime assurance** — a multi-database test matrix (incl. a PostgreSQL strictness pass) and a multi-PHP-version run. |
 
-Alongside these, the companion UI5 apps (Partners, Settings, address library, auth)
+Alongside these, the companion UI5 apps (Partners, Settings, auth)
 roll out as the surfaces they exercise mature — driving each toward
 **Frozen-Provisional**. A surface reaches **Frozen** once it has been proven by
 independent consumers.
