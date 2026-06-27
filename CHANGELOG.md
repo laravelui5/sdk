@@ -15,6 +15,19 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.6] - 2026-06-27
+
+The SDK now delivers its built-in apps through Core's multi-app packaging — the
+groundwork for shipping more than one app from the single SDK package (Partners
+today, Settings next).
+
+### Changed
+
+- **BREAKING — requires Core `^1.0.6`.** The multi-app packaging lands in Core
+  1.0.6; update Core before pulling this release.
+- The built-in Partners module moved to the `LaravelUi5\Sdk\Partners` namespace.
+  No action needed unless you reference its module/app/manifest classes directly.
+
 ## [0.17.5] - 2026-06-27
 
 A cache-command fix and a platform bump.
