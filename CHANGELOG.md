@@ -15,6 +15,77 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.5] - 2026-06-27
+
+A cache-command fix and a platform bump.
+
+### Fixed
+
+- `ui5:cache` no longer fails when your registry declares a `#[Slot]`. A slot's
+  generated settings carry typed enums (`ValueType` / `Scope` / `EditLevel`), and
+  these now round-trip through the cache correctly instead of aborting the build.
+
+### Changed
+
+- **BREAKING — minimum PHP is now 8.4** (`"php": "^8.4"`). Upgrade your platform
+  before pulling this release.
+
+## [0.17.4] - 2026-06-25
+
+The SDK now ships its own configuration defaults, so a host no longer hand-authors the shell.
+
+### Added
+
+- Documented config defaults for `navigation_service`, `context`, `discovery`,
+  `shell`, `intents`, and `help`, merged automatically into the `ui5.*` namespace.
+  A fresh install gets a working LeanShell, discovery, and help out of the box;
+  override any key in your own `config/ui5.php` (your value wins).
+
+## [0.17.3] - 2026-06-24
+
+Faster cached authorization, and a firm deploy order.
+
+### Added
+
+- `Security\AbilityRef` and `Security\Contracts\AbilityIndexInterface`. The registry
+  cache now bakes the sync-assigned ability ids, so the production `CachedRegistry`
+  resolves abilities with **zero per-request queries**.
+
+### Changed
+
+- **Deploy order is now `migrate → sync → cache`.** `ui5:cache` reads the ids that
+  `ui5:sync` assigns and fails loudly if run before it. `ui5:cache` now writes a
+  single cache file (`bootstrap/cache/ui5.php`).
+
+## [0.17.2] - 2026-06-24
+
+LUX Weave navigation — cross-app navigation from shared business concepts.
+
+### Added
+
+- **`#[Concept(name, model)]`** — declare a shared business concept (a canonical
+  name + its Eloquent model) on the module that owns the model. Pure identity: no
+  UI, no intents.
+- **`#[Weave(concept, route, in/out)]`** — declare a cross-app navigation entry
+  point on the contributing Ui5App, named by the target concept. A hub concept
+  gains an outbound menu **automatically** from the apps that weave into it — with
+  no edits to the hub.
+- Registry seams `concept()`, `inboundEntriesForConcept()`,
+  `outboundEntriesForConcept()`, `conceptsProvidedBy()`; the `weave.navigate`
+  intent; and `context.weave` shell delivery — the current app's outbound entries,
+  server-side filtered to what the signed-in actor may access.
+
+### Changed / BREAKING
+
+- **BREAKING — `#[SemanticObject]` is replaced by `#[Concept]`.** `name` is now
+  required and the `intents[]` argument is removed (Weave is navigation-only;
+  action intents keep their own config-driven registration).
+- **BREAKING — `#[SemanticLink]` is replaced by `#[Weave]`**, moved from a model
+  relation method onto the Ui5App class and gaining `concept` / `route` / `in` / `out`.
+- **BREAKING — registry introspection** `objects()` / `links()` / `intentRefs()` are
+  replaced by `concepts()` / `consumers()`; `getNavigationIntents()` is removed.
+- **Re-run `ui5:cache` after upgrading** — the cached navigation-graph schema changed.
+
 ## [0.17.1] - 2026-06-10
 
 The Customizing engine's first real consumer, plus the i18n tooling that pairs with it.
