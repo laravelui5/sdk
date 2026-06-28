@@ -15,6 +15,30 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.8] - 2026-06-28
+
+A richer partner-relationship vocabulary and a friendlier `ui5:doc`.
+
+### Added
+
+- **Four built-in partner-relationship types.** The Partners module now ships a broader
+  set of business-partner connections, so you can model real organisational structure
+  without inventing your own:
+  - **Shareholder** — holds an equity stake in a company (distinct from a wholly-owned subsidiary).
+  - **Member** — belongs to a group, association, or consortium, without employment or ownership.
+  - **Successor** — the legal successor after a merger or rename, keeping master-data history intact.
+  - **Affiliate** — a related or sister company under a common parent.
+
+  Each ships with built-in context help and is available right after `ui5:sync`.
+  (Responsibilities a partner holds *for* an organisation — bill-to, ship-to, primary
+  contact — remain partner *roles*, which you declare on your own module.)
+
+### Changed
+
+- **`ui5:doc` now shows the new help document's UUID.** Scaffolding a help page prints its
+  generated UUID and file path in the success message, so you can wire it straight into your
+  module instead of reading it off the created folder.
+
 ## [0.17.7] - 2026-06-28
 
 Context-help for your Customizing catalogs, a leaner built-in partner model, and a
