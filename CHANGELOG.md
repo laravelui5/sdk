@@ -15,6 +15,45 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.7] - 2026-06-28
+
+Context-help for your Customizing catalogs, a leaner built-in partner model, and a
+safety guard on primary relationships.
+
+### Added
+
+- **Context-help for Customizing rows.** A catalog entry can now point at a help
+  document: implement `helpUuid()` on your `CustomizingEntry` attribute and the
+  synced row carries a `help_uuid` that the context-help control resolves at runtime.
+  References are validated when you build help (`ui5:help`) — a help id with no
+  document fails the build, the same guarantee module-level `#[Help]` already gives
+  you. (On an already-migrated database, add the nullable `help_uuid` column to the
+  catalog tables you want help on; the feature is optional and stays dormant until
+  you do.)
+
+### Changed
+
+- **BREAKING — `CustomizingEntry` now declares `helpUuid(): ?string`.** Any
+  Customizing attribute you maintain must add the method (return `null` for "no
+  help"). The built-in attributes already do.
+- **Primary relationships are now guarded on write.** Saving a second *active,
+  overlapping* primary relationship of the same type for one partner — e.g. two
+  concurrent primary employers — now fails fast with a clear exception instead of
+  silently producing an ambiguous data-access scope. Past (non-overlapping) history
+  and non-primary relationships are unaffected.
+
+### Removed
+
+- **BREAKING — the SDK no longer ships a built-in partner-role catalog.** The generic
+  roles (`supplier`, `employee`, `department`, `cost_center`, `bill_to`, `ship_to`,
+  `payer`, `approver`, `project_lead`) and the `PartnerRoleCode` enum are removed. The
+  SDK never used these codes itself, so the vocabulary is yours: declare the roles your
+  application actually needs on your own module, using the same `#[PartnerRole]`
+  attribute and the same `sdk_partner_roles` table. The relationship-type catalog
+  (`employed_by`, `owns`) still ships, and the `#[PartnerRole]` attribute and
+  `PartnerRoleScope` enum remain. **If you relied on the built-in roles, declare the
+  ones you need before upgrading.**
+
 ## [0.17.6] - 2026-06-27
 
 The SDK now delivers its built-in apps through Core's multi-app packaging — the
