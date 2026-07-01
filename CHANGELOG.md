@@ -15,6 +15,43 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.9] - 2026-07-01
+
+The LeanShell shell comes up end to end — command palette, help, and navigation —
+alongside a new access-gated partner console, plus navigation and help polish.
+
+### Added
+
+- **A partner master-data console, over OData.** The Partners module now exposes the
+  full partner registry as an OData entity set (`Partners`), gated by an app-level
+  access ability (`partners-admin`). A user who holds the grant opens a live
+  master-data console; a user who does not never sees the app at all. Available right
+  after `ui5:sync`.
+
+### Changed
+
+- **Infrastructure modules stay out of the navigation rail.** Platform-plumbing
+  modules — the login flow, diagnostics — no longer clutter the shell navigation. An
+  infrastructure module that genuinely has a screen opts in by implementing the new
+  `ShowInNavigation` marker (the Partners console does). Your own business modules are
+  unaffected — they always appear.
+
+### Fixed
+
+- **The LeanShell now initializes end to end.** A cluster of start-up issues could take
+  the whole shell offline whenever any single piece — the help index, the navigation
+  payload, discovery — wasn't ready, leaving the command palette, help, and navigation
+  dead together. The shell now assembles cleanly: global search (Cmd+K), contextual
+  help (F1), and navigation (Cmd+B) all work.
+
+- **The default user avatar renders again.** The placeholder avatar pointed at a
+  location the SDK never served, leaving a broken image in the shell header for anyone
+  without a picture. It now ships and publishes with the rest of the shell assets.
+
+- **Help opens as a proper overlay.** The help viewer (F1) docks as a full-height drawer
+  above your application instead of rendering inside the page, and its search field is
+  clearly visible.
+
 ## [0.17.8] - 2026-06-28
 
 A richer partner-relationship vocabulary and a friendlier `ui5:doc`.
