@@ -15,6 +15,31 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.11] - 2026-07-03
+
+Partner addresses arrive as a faithfully-stored attribute of the partner — with a
+validation provider you choose and pluggable, country-aware rendering.
+
+### Added
+
+- **A partner address model.** A partner's addresses are now stored as a governed
+  attribute of the partner: structured where the world allows it, free-form where it
+  doesn't, each tagged by postal kind (primary, PO box, c/o, mailing) — plus a "no
+  postal address" fact for GPS-only places such as a construction site or an
+  address-to-be. One primary address per partner, and a complete-or-GPS capture rule,
+  are enforced on every write.
+
+- **Validation is a provider you choose — bought, never owned.** Address validation
+  plugs in through a single provider seam: bind Google, Radar, Mapbox, OpenStreetMap, or
+  a national address register, and a picked address is stored faithfully — never bound
+  to one vendor's place-id namespace. The SDK ships the seam, not a bundled vendor.
+  Manual entry works out of the box with no provider bound at all.
+
+- **Country-aware rendering, without owning worldwide correctness.** Captured addresses
+  render to correctly line-broken text through a formatter selected automatically from
+  the address's country — a good-enough default out of the box, and a seam to drop in a
+  country-specific renderer where you need one.
+
 ## [0.17.10] - 2026-07-03
 
 The partner console gains its interface: a searchable, filterable catalogue and a
