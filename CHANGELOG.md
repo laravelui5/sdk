@@ -15,6 +15,33 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.10] - 2026-07-03
+
+The partner console gains its interface: a searchable, filterable catalogue and a
+single-partner detail page.
+
+### Added
+
+- **A searchable partner catalogue.** The partner console now opens on a live list of
+  every partner in your tenant, with instant search and filters for companies vs people
+  and by structural role — customer, supplier, employee, and the rest — plus a
+  current / all / past-and-future view so you can see who holds a role now, ever, or no
+  longer. Selecting a partner opens their detail beside the list.
+
+- **A single-partner detail page.** Each partner opens as an object page: identity
+  master data in the header (name, type, VAT, e-mail…), the partner's people and
+  organisation shown in place — their functional contacts (primary, billing, technical)
+  and their employment and membership relationships — and tabs that summarise the
+  partner's authorization (security roles, groups, and abilities) and settings, each
+  with a live count. Additional detail tabs — parameters and delegations among them —
+  are laid out now and fill in as those capabilities land.
+
+### Fixed
+
+- **The partner list sends only what it shows.** The registry read now returns just the
+  columns the catalogue displays; master-data fields such as VAT number, phone, and
+  birthdate no longer travel to the browser with the list.
+
 ## [0.17.9] - 2026-07-01
 
 The LeanShell shell comes up end to end — command palette, help, and navigation —
