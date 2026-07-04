@@ -15,6 +15,34 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.13] - 2026-07-04
+
+User impersonation arrives — a controlled way to act as another partner — and a new
+Launchpad becomes the safe place every session lands.
+
+### Added
+
+- **User impersonation.** A privileged user can act as another partner — to reproduce
+  what that user sees, verify their access, or work on their behalf. The whole session
+  then runs *as* that partner (every permission check resolves against them) while every
+  action stays *attributed to* the real user, so an audit never loses who actually acted.
+  Who may act as whom is an explicit, **time-bound grant**: an administrator issues a
+  delegation — a validity window, a note, and a full history that is added to, adjusted,
+  or ended early but never deleted — from the target partner's own record. Holding a grant
+  is the entire permission: there is no blanket "impersonate anyone," and you can only ever
+  act as those granted to you — impersonation never chains. A user starts, switches, or
+  ends it from the shell's identity menu.
+
+- **The Launchpad — a safe landing for every session.** A new single-page launchpad is the
+  post-login landing and the destination of every impersonation transition. It is reachable
+  by any signed-in user and shows only what the acting partner may open — so beginning to
+  act as a partner who cannot open your current app never strands the session: you land on
+  the launchpad and continue from what *they* can reach.
+
+- **Shell app navigation.** The shell's navigation rail now switches between apps and opens
+  their routes directly, each landing in the right place — subject to the same app-level
+  access checks used across the shell.
+
 ## [0.17.12] - 2026-07-04
 
 Per-actor parameter values arrive — a governed, time-aware store for the values behind
