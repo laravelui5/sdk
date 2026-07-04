@@ -15,6 +15,35 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.12] - 2026-07-04
+
+Per-actor parameter values arrive — a governed, time-aware store for the values behind
+Core's parameters — and the partner console gains addresses and a parameters view.
+
+### Added
+
+- **Actor parameter values.** Store per-actor values for any Core parameter — an
+  actor's default currency, locale, reporting period, and so on. Values are **governed**
+  (each parameter carries an edit level that decides who may set it), **time-aware**
+  (every value has a validity window, so a historical report reproduces the value that
+  was in force at the moment it covers), and **admin-on-behalf** (an administrator can
+  set a value for another actor, subject to the edit level). They resolve automatically
+  through the parameter pipeline, so a dashboard, report, or query receives "this
+  actor's value" without asking for it; an unauthenticated request simply contributes
+  nothing and falls through to the defaults.
+
+- **The `ui5:slot` inspector now shows per-actor overrides.** Listing a single
+  parameter shows the catalog definition as before, and beneath it every partner's
+  stored value alongside the Core default and its validity window.
+
+- **Addresses in the partner console.** A partner's stored addresses now appear on the
+  partner detail page — each rendered as correctly line-broken text, tagged by postal
+  kind (primary, PO box, c/o, mailing) and validation state.
+
+- **A partner parameters view.** The detail page drills into a partner's parameter
+  values: every catalog parameter with the partner's override where one is set and the
+  Core default everywhere else, each showing its edit level and validity.
+
 ## [0.17.11] - 2026-07-03
 
 Partner addresses arrive as a faithfully-stored attribute of the partner — with a
