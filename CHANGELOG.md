@@ -15,6 +15,23 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.16] - 2026-07-07
+
+Opening things becomes one consistent path: ask the platform to **open an artifact by name** — a
+dialog, an app — and it resolves it, checks access, and opens the right kind of thing.
+
+### Changed
+
+- **One way to open any artifact.** The global dialogs from 0.17.15 opened through a
+  dialog-specific step; that is now the platform's single *open-an-artifact* request, identified by
+  the artifact's name — the same identity you already use to call an action. Your app opens a dialog
+  exactly as the shell opens an app, and **opening an artifact from the command palette now works**
+  (it previously led to a dead end).
+
+- **BREAKING — the call to open a dialog changed.** If you adopted global dialogs in 0.17.15,
+  dispatch **`ui5-artifact.open`** with a **`namespace`** parameter, in place of `ui5.dialog.open`
+  with `dialog`. One line at your call site; nothing else about dialogs changed.
+
 ## [0.17.15] - 2026-07-07
 
 You can now create partners from the console, and the platform gains **global dialogs** — a
