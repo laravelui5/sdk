@@ -15,6 +15,68 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.15] - 2026-07-07
+
+You can now create partners from the console, and the platform gains **global dialogs** — a
+shell-native way to open a focused, secured modal interaction from anywhere.
+
+### Added
+
+- **Create partners from the console.** The partner catalogue gains a **Create** action that
+  opens a tailored form — one for a company, one for a person, each asking only for the fields
+  that kind needs. On save, the new partner is added to the registry and opened, ready to work
+  on. Creating a partner is a governed action, so only the users you grant it can add one.
+
+- **Global dialogs.** A new building block: a modal dialog that belongs to an app but opens
+  *through the shell*. Opening one is a real, server-authorized step — each dialog carries its
+  own access rule, checked before it appears — and the shell can host a dialog even when its
+  owning app is not the one on screen. Because a dialog is a first-class, named part of the
+  platform, it is reachable the same way as everything else — from an action, a shortcut, or the
+  command palette — so a create/edit interaction can be offered wherever it makes sense, declared
+  once.
+
+### Changed
+
+- **Requires Core 1.2.0.** Opening a dialog goes through Core's new client navigation entry
+  point, which ships in Core 1.2.0. Update Core before upgrading.
+
+## [0.17.14] - 2026-07-07
+
+Actor parameter values get simpler: a per-user convenience store — set a value once and
+it is remembered — in place of the validity windows and edit-level governance shipped in
+0.17.12.
+
+### Changed
+
+- **Actor parameter values are now a plain per-user store.** A stored value — your
+  default currency, timezone, reporting period, or date range — is a convenience you set
+  once and the SDK remembers, not an audited grant. Each person holds **one current value
+  per parameter**: setting replaces the previous value, clearing removes it. Values still
+  resolve automatically through the parameter pipeline (a dashboard, report, or query
+  receives "this actor's value" without asking), and an administrator can still set one on
+  another actor's behalf. What's gone is the **validity window** and the **edit-level
+  governance** from 0.17.12 — a convenience value has no timeline to reproduce and no grant
+  to authorize, so a report now reads the value in force *now* rather than the one in force
+  at the moment it covers.
+
+- **BREAKING — the actor-parameter reader and writer contracts changed shape, and the
+  stored-values table is reshaped.** `ActorParameterWriterInterface` is now
+  `set(actor, name, value, context)` and `clear(actor, name, context)` — the
+  validity-window arguments and the write authorization are gone, and the acting partner
+  is taken from the passed context (provenance only). `ActorParameterReaderInterface` drops
+  the point-in-time (`$at`) argument from `get` / `all` / `fill`. Update your call sites if
+  you implement or invoke these directly. The stored-values table loses its validity
+  columns (one value per person per parameter), so any values captured under 0.17.12–0.17.13
+  lose their historical windows — re-set them after upgrading. The `ui5:slot <name>`
+  inspector's per-actor table now reads **Partner · Value · By**.
+
+### Removed
+
+- **The time-window and write-authorization guards for actor values**
+  (`InvalidTimeWindowException`, `WriteAuthorizationException`) — with no window to validate
+  and no write-governance to enforce, both are retired. A parameter's `editable` level
+  remains as descriptive metadata but no longer decides who may store a value.
+
 ## [0.17.13] - 2026-07-04
 
 User impersonation arrives — a controlled way to act as another partner — and a new
