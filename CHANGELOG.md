@@ -15,6 +15,27 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.17] - 2026-07-08
+
+Your app can now let people **download a filtered list as a file**.
+
+### Added
+
+- **Export a list to a file.** A table's current view — with the filters and search the user has
+  applied — becomes a downloadable spreadsheet, saved straight to the browser with no extra tab and
+  no page navigation. The work happens on the server: it gathers the *whole* filtered set (not just
+  the rows currently loaded on screen), builds the file, and confirms the user is allowed to export
+  before handing anything back. Exporting an unfiltered, very large registry is politely refused
+  with a *"narrow the list first"* message, so downloads stay fast and deliberate. The partner
+  console is the first surface to offer it. Files are **CSV** today — they open directly in Excel
+  and every spreadsheet app — and **Excel `.xlsx` is a small add-on your host app can plug in** when
+  you want it; the SDK carries no spreadsheet library of its own.
+
+### Changed
+
+- **Requires Core 1.3.0.** The download is triggered through Core's new export entry point, which
+  ships in Core 1.3.0. Update Core before upgrading.
+
 ## [0.17.16] - 2026-07-07
 
 Opening things becomes one consistent path: ask the platform to **open an artifact by name** — a
