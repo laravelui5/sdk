@@ -15,6 +15,34 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.18] - 2026-07-09
+
+The partner console becomes a **complete master-data workbench** — every part of a partner's
+record can now be created, edited, and organized in place.
+
+### Added
+
+- **Manage a partner's whole record from the console.** Alongside viewing a partner you can now
+  **edit its identity**, and add / edit / remove its **web & social links**, its **addresses**, its
+  **organizational relationships** (the org chart), and its **contact people** — each in a focused
+  panel that opens beside the partner you're looking at, so you never lose your place. Related
+  partners are **linked, not retyped**: attach an existing partner as a contact or a relationship
+  and release it again later, and jump straight to it with one click. Every list updates the moment
+  you save.
+- **Create departments.** From an organization you can create a department that belongs to it,
+  wired into the org chart in a single step. A department carries its parent company's name, so it's
+  always clear which company it belongs to.
+- **Archive and restore partners.** Retire a partner you no longer work with — it drops out of the
+  working list by default and comes back with a **"show archived"** toggle. Fully reversible, and
+  nothing is deleted; downloads follow the same rule, so an export matches what you see on screen.
+
+### Changed
+
+- **Creating a partner now distinguishes companies and people.** *Create a partner* is split into
+  **create a company** and **create a person**, so each kind can grow its own rules over time.
+  **BREAKING — permissions:** the single *create-partner* permission is replaced by **create-company**
+  and **create-person**. Re-grant these wherever you had granted *create-partner*.
+
 ## [0.17.17] - 2026-07-08
 
 Your app can now let people **download a filtered list as a file**.
