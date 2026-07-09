@@ -15,6 +15,30 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.19] - 2026-07-09
+
+The partner console gains two more ways to organize who a partner **is** and who may **act on their
+behalf** — classifications and delegations, both managed right where you read them.
+
+### Added
+
+- **Classify partners at a glance.** Tag a partner as a **customer, supplier, competitor,** or
+  **employee** straight from its header, and remove a tag just as easily. The colored badges you
+  already saw now have a management panel behind them, so a classification is set where you see it —
+  and a partner can carry more than one.
+- **Delegate one partner's access to another — managed from both sides.** A *delegation* lets one
+  person stand in for another for a set period. The console now shows and manages both directions:
+  **who may act as this partner**, and **whom this partner may act as**. Grant a delegation by
+  choosing the colleague, the dates, and an optional note that records *why*; end an active one early
+  in a single step. Three touches keep it safe and tidy:
+  - **In-company only.** The chooser offers just the colleagues from the partner's own organization —
+    delegation is a within-the-company arrangement, not an open field.
+  - **Planned ahead? It's visible now.** Schedule a delegation to begin later and it appears the
+    moment you create it, so nothing you've arranged stays hidden until it starts.
+  - **Cancelling one that never started leaves no trace.** End a delegation before it ever takes
+    effect and it's simply removed — there's nothing to keep. Ending one that was already in effect
+    keeps its record.
+
 ## [0.17.18] - 2026-07-09
 
 The partner console becomes a **complete master-data workbench** — every part of a partner's
