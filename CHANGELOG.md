@@ -15,6 +15,33 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.20] - 2026-07-10
+
+The partner console gains a complete **Authorization** surface — manage a partner's login and
+everything they're allowed to do, right where you view them.
+
+### Added
+
+- **Manage a partner's login.** Create a login for a partner — you set the initial password, and they
+  must change it on first sign-in — then lock or unlock it, reset the password, or delete it, all from
+  the partner's Authorization tab. Deleting a login also ends that partner's active access, so nothing
+  is left dangling. Login management works out of the box for a standard Laravel `users` table; an app
+  that keeps its logins elsewhere plugs in its own without touching the rest.
+- **Assign roles, groups and abilities.** Give a partner a security role, add them to a group, or grant
+  an individual ability — and revoke any of them, one row at a time. A revoke *ends* the grant but keeps
+  the record, so there's a clear audit trail of who had what and when.
+- **Grant abilities with a searchable picker.** The picker lists every ability across your apps,
+  live-searchable, with a one-click toggle to grant or revoke — and it flags when an ability is already
+  reached through a role or group, so you never grant twice by accident.
+- **See exactly what a partner can do — and why.** A *View Effective Permissions* read-out resolves
+  everything a partner effectively holds across every app, showing the source of each permission
+  (granted directly, via a role, or via a group), with live search.
+
+### Fixed
+
+- **Console actions report errors clearly.** A validation error in a console action — a password that's
+  too short, say — now returns a readable message instead of failing quietly.
+
 ## [0.17.19] - 2026-07-09
 
 The partner console gains two more ways to organize who a partner **is** and who may **act on their
