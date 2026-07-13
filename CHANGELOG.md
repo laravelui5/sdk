@@ -15,6 +15,39 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.21] - 2026-07-12
+
+Actions gain a voice. When a user runs one of your actions, the SDK now confirms success, explains
+failure on the right field, and keeps the lists in view up to date — and for the actions you write,
+there's a single, well-defined way to make all of that happen. You'll see the first of it when editing
+a partner's web & social profiles; the rest is the foundation everything else builds on next.
+
+### Added
+
+- **Actions confirm success and explain failure — clearly, and in the right place.** A successful
+  action shows a brief confirmation. A failed one puts each error **on the field it belongs to** (the
+  control turns red with its message) and gathers everything into a **message overview** you open from
+  the form — validation problems and business-rule messages side by side, each with its own severity.
+  No more silent failures or errors stranded far from the field that caused them.
+
+- **Lists refresh themselves after a write.** When an action changes data, the views showing that data
+  update on their own — no manual reload, no stale rows after a save.
+
+- **One contract for the actions you write.** An action handler now receives what it needs — the
+  validated input, who is acting — and hands back a single outcome: commit with a confirmation, or roll
+  back with messages. The SDK wraps the whole thing in a database transaction, so a rollback leaves
+  nothing half-written, and turns the outcome into the exact response the front end expects. Scaffolding
+  a new action (`ui5:action`) generates this shape for you.
+
+### Changed
+
+- **Requires LaravelUi5 Core 2.1 or newer.** This release builds on Core 2.1's extensible scaffolding
+  and Core's bundled client update; pin Core to `^2.1` when you upgrade.
+
+- **BREAKING (internal action).** The partner console's *Save Profile* action is the first to move to
+  the new contract; its success response now returns the saved record's id under `data` and its
+  confirmation under `message`. If you called that action directly, read the id from `data.id`.
+
 ## [0.17.20] - 2026-07-10
 
 The partner console gains a complete **Authorization** surface — manage a partner's login and
