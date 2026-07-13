@@ -15,6 +15,45 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.22] - 2026-07-13
+
+The context your code runs in carries two more things it always needed. An action — or a read-only
+screen like a card, tile, or report — now receives the **dimensions it's scoped to** and the
+**settings that configure it**, both already resolved for the person acting, without you threading
+them through by hand. And per-user settings finally stick: a user's own choices are saved and read
+back as theirs.
+
+### Added
+
+- **Read the dimensions a request is scoped to.** Your code can declare the ambient parameters it
+  depends on — a sales org, a currency, a reporting period — and receive them already resolved for the
+  current request and the acting user. No more passing the same context object down through every
+  layer by hand. Opt in where you want them; leave it out where you don't.
+
+- **Settings are available wherever you act, resolved for the acting user.** The configuration declared
+  for an artifact — its shared defaults and each user's personal overrides — is handed to your code as
+  ready-to-use values, resolved by scope so a user's own choice wins over the shared default. Ask for a
+  setting by name and get the real, typed value back.
+
+### Fixed
+
+- **Per-user settings now actually personalize.** A user's own setting override was never being stored
+  as personal, and never read back correctly — so everyone effectively shared one value. Overrides are
+  now saved per user and visible only to their owner: your setting, your value; the shared default for
+  everyone else. If your app lets users tailor their own preferences, this is the release where that
+  starts working.
+
+### Changed
+
+- **Requires LaravelUi5 Core 2.2 or newer.** Pin Core to `^2.2` when you upgrade.
+
+### Good to know
+
+- **Dimensions can be influenced by the request, so authorize your writes.** A scoped dimension may be
+  supplied on the request — convenient for reads, but on an action that changes data it's your code's
+  job to confirm the acting user is allowed to operate on that value before writing. The SDK hands you
+  the value; guarding the write is yours (a dedicated, declarative guard for this is planned).
+
 ## [0.17.21] - 2026-07-12
 
 Actions gain a voice. When a user runs one of your actions, the SDK now confirms success, explains
