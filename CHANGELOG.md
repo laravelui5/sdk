@@ -15,6 +15,25 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.17.23] - 2026-07-14
+
+Two fixes for things that should have just worked. A button you gate to a role now appears for the
+people who hold that role — not only the action behind it, the button itself. And help pages render
+clean, without a stray paragraph mark in front of every heading.
+
+### Fixed
+
+- **Role-gated controls now reach the people they're meant for.** When you mark a control visible
+  only to a given role (the standard `sap.ui.viewModifications` gate), a holder of that role now
+  actually sees it. Previously the visibility grant was recorded but never wired to its role, so the
+  control stayed hidden even for the admins entitled to it — while the action behind the control was
+  correctly allowed. The two now agree: the button shows, and the action runs. **Re-run `ui5:sync`**
+  to apply the grant.
+
+- **Help pages no longer show `¶` marks before headings.** Every heading in a compiled help page was
+  getting a permalink pilcrow in front of it — clutter with no purpose in the help viewer. It's gone.
+  **Re-run `ui5:help`** to recompile.
+
 ## [0.17.22] - 2026-07-13
 
 The context your code runs in carries two more things it always needed. An action — or a read-only

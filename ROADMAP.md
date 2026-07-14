@@ -21,20 +21,25 @@ core under a larger, honestly-labelled body is the goal.
 
 ## Planned
 
-Order is settled; each lands as its own minor.
+Order is settled; each lands as its own minor. **1.0 arrives with Settings (0.19)** —
+the point at which the core is complete and carries a stable promise: identity,
+interoperability, and settings, the surfaces you build against. The reporting,
+analytics, and database-assurance work below arrives as **post-1.0 minors, built as
+customers need them** — planned, not gates on the way to 1.0.
 
-| Line | Status | Date | Focus  |
-|:---- |:------ |:---- |:------ |
-| **0.16** | ✅&nbsp;**Shipped**  | 2026&#8209;06&#8209;09 | **Consolidation** – The contract surface has been reviewed end to end. The current line documents it, hardens it, and closes the gaps the review surfaced. No new feature area, a steadier foundation to build on. |
-| **0.17** | 🚧 **Started**      | 2026&#8209;06&#8209;10     | **Identity & impersonation** — partner-validated authorization, acting-as support, and actor-level parameters (slots). |
-| **0.18** | ⏳ **Waiting**       | –                           | **ValueHelp** — the data-binding value-help successor to the global dialog, for search-and-select across your UIs. |
-| **0.19** | ⏳ **Waiting**       | –                                | **Settings personalization** — per-user setting overrides, validated end to end against the settings app. |
-| **0.20** | ⏳ **Waiting**       | –                                | **SQL Query Layer** — a typed query foundation for reporting and analytics. |
-| **0.21** | ⏳ **Waiting**       | –                                | **Reporting API** — parameterized, query-backed reporting surfaces. |
-| **0.22** | ⏳ **Waiting**       | –                                | **Analytics API** — analytic tiles and cards with inlined data. |
-| **0.23** | ⏳ **Waiting**       | –                                | **Database & runtime assurance** — a multi-database test matrix (incl. a PostgreSQL strictness pass) and a multi-PHP-version run. |
+| Line | Status | Date                   | Focus                                                                                                                                                                                                                                                                                                                                                   |
+|:---- |:------ |:-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **0.16** | ✅&nbsp;**Shipped**  | 2026&#8209;06&#8209;09 | **Consolidation** – The contract surface has been reviewed end to end. The current line documents it, hardens it, and closes the gaps the review surfaced. No new feature area, a steadier foundation to build on.                                                                                                                                      |
+| **0.17** | ✅&nbsp;**Shipped**  | 2026&#8209;07&#8209;14 | **Identity & impersonation** — partner-validated authorization, acting-as support, and actor-level parameters (slots).                                                                                                                                                                                                                                  |
+| **0.18** | ⏳ **Waiting**       | –                      | **LUX Weave — the interoperability layer** — the substrate that lets independent apps compose across shared business concepts: cross-app navigation between related records, value-help, dashboard composition, and a central launchpad. |
+| **0.19** | ⏳ **Waiting**       | –                      | **Settings personalization** — per-user setting overrides, validated end to end against the settings app. **The last piece of the core — `1.0` lands here.**                                                                                                                                                                                            |
+| **🎯&nbsp;`1.0`** | ⏳ **Waiting** | –                    | **The core earns its stable promise** — identity, interoperability, and settings, frozen under full semantic versioning. Everything below arrives as a later minor.                                                                                                                                                                                     |
+| *(post‑1.0)* | ⏳ **Planned** | –                | **SQL Query Layer** — a typed query foundation for reporting and analytics.                                                                                                                                                                                                                                                                             |
+| *(post‑1.0)* | ⏳ **Planned** | –                | **Reporting API** — parameterized, query-backed reporting surfaces.                                                                                                                                                                                                                                                                                     |
+| *(post‑1.0)* | ⏳ **Planned** | –                | **Analytics API** — analytic tiles and cards with inlined data.                                                                                                                                                                                                                                                                                         |
+| *(post‑1.0)* | ⏳ **Planned** | –                | **Database & runtime assurance** — a multi-database test matrix (incl. a PostgreSQL strictness pass) and a multi-PHP-version run, **built on demand**.                                                                                                                                                                                                  |
 
-Alongside these, the companion UI5 apps (Partners, Settings, auth)
+Alongside these, the companion UI5 apps (Partners, Launchpad, Settings, auth)
 roll out as the surfaces they exercise mature — driving each toward
 **Frozen-Provisional**. A surface reaches **Frozen** once it has been proven by
 independent consumers.
