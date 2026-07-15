@@ -15,6 +15,37 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.18.0] - 2026-07-15
+
+A field can now open a **value help** — a searchable picker that browses a business object and hands
+back the selection — and, for the first time, a value help provided by **one module can be opened from
+another**. The platform hosts the provider's picker, shows its data with its own translations, and
+returns the selection to the caller, even though the two modules share nothing. The provider stays in
+control of who may open it. Your code also gains the acting and authenticated partner on the client.
+
+### Added
+
+- **Value help — a picker any field can open.** Build a search help as a small modal — a dialog with
+  your list inside — plus a short controller that shapes the list and returns the choice. A field
+  opens it by name and `await`s the outcome: the selected items, an empty result (a deliberate
+  "clear"), or nothing when the user backs out — so a cancel needs no error handling. Each choice
+  comes back as `{ key, text }`, with an optional payload for the cases that need more than a key and a
+  label. What the list *is* — its data source, its controls, its filters — stays inside the view, your
+  business; the platform only carries the selection back. The write behind a "Create…" button is a
+  normal action, so inline creation composes without a special path.
+
+- **Open a value help across modules.** A picker belongs to the module that defines it, but another
+  module can open it — the platform instantiates the provider, renders its picker with the provider's
+  own data and language, and delivers the selection back to the caller. The provider authorizes the
+  open with **its own access rule**, checked when the picker opens: being allowed into the calling
+  screen is not the same as being allowed to browse the provider's records, so a cross-module picker
+  gates itself. **Re-run `ui5:sync`** so a picker's access rule is applied.
+
+- **The acting and authenticated partner, on the client.** `LaravelUi5.getActor()` and
+  `getPrincipal()` now return the current partner — the one you're acting as, and the one who logged
+  in — as a small identity you can read in the browser (id, name, first name, avatar, gender). A
+  screen can scope a request to the acting user without a round-trip to the server.
+
 ## [0.17.23] - 2026-07-14
 
 Two fixes for things that should have just worked. A button you gate to a role now appears for the

@@ -1,5 +1,8 @@
 # LaravelUi5 SDK
 
+[![Latest release](https://img.shields.io/github/v/release/laravelui5/sdk?sort=semver&label=release)](https://github.com/laravelui5/sdk/releases/latest)
+[![License: Commercial](https://img.shields.io/badge/license-commercial-blue)](./LICENSE)
+
 **The productivity layer for enterprise OpenUI5 on Laravel.**
 
 Where [`laravelui5/core`](https://github.com/laravelui5/core) describes — apps, libraries, cards, dashboards, OData — the SDK operationalizes: it turns that static metadata into a living runtime. A database-backed registry, a time-aware permission engine, a lean shell with navigation, search and help, and prebuilt business modules — so teams build enterprise UI5 apps in a Laravel-native workflow, faster and with less ceremony.
