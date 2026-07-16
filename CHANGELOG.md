@@ -15,6 +15,19 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.18.2] - 2026-07-16
+
+A packaging refinement that completes the multi-app work from `0.17.6`: the SDK's built-in apps —
+Partners, Settings, and the Launchpad — now each carry their own frontend, so every one of them loads
+reliably from a standard install. How you use them is unchanged.
+
+### Changed
+
+- **Each built-in app now ships its own frontend.** Partners, Settings, and the Launchpad used to draw
+  their compiled UI from one shared place in the package; each now keeps its own, right next to its
+  code. The apps look and behave exactly as before — the change simply makes them resolve dependably in
+  a plain install, with no development-only setup. Nothing to do on your side.
+
 ## [0.18.1] - 2026-07-16
 
 The shell gains a **sign-out**, and the **LUX Launchpad** takes its first real shape. You can now end
