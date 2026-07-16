@@ -15,6 +15,28 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.18.1] - 2026-07-16
+
+The shell gains a **sign-out**, and the **LUX Launchpad** takes its first real shape. You can now end
+your session from inside the app — no browser detour — and place your own tiles on a launcher, where a
+launch tile opens its app in a single press.
+
+### Added
+
+- **Sign out from the shell.** The identity menu now offers a sign-out that ends your session cleanly
+  and returns you to the start page. Moving between accounts no longer means clearing browser cookies
+  by hand.
+
+- **Place a tile on the LUX Launchpad.** Mark any tile with
+  `#[Launchpad('<domain>/<capability>', weight: …)]` and it appears on the Launchpad. The platform
+  gathers every marked tile into one launcher, ordered by the weight you set — the tile declares where
+  it belongs and the Launchpad composes them, with no wiring in between. (The full domain/capability
+  tree is on the way; today the launcher is a single flat grid.)
+
+- **Launch tiles that open an app.** A launcher tile can carry a navigation intent, so a single press
+  opens the target app: the platform resolves the app and takes you there, after checking you may
+  enter. A first, compact launch tile ships for the Partners module.
+
 ## [0.18.0] - 2026-07-15
 
 A field can now open a **value help** — a searchable picker that browses a business object and hands
