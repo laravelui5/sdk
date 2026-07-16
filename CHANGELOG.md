@@ -15,6 +15,28 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.18.3] - 2026-07-16
+
+A tile or card from one module can now appear on **another module's dashboard** — the contributing
+module simply declares where its tile belongs, and the dashboard grows to include it with **no change
+to the app that owns it**. Ship a second module months later and its panel just shows up.
+
+### Added
+
+- **Contribute a tile or card to another module's dashboard.** Mark any tile or card with
+  `#[Contribute('<target group>', weight: …)]` — naming the published dashboard group it belongs to —
+  and register it on your own module as usual. The platform places it in that group; the module that
+  owns the dashboard is never touched to receive it. Contributions order by the `weight` you set (a
+  smaller number ranks higher) and follow the group's own tiles.
+
+  The tile stays entirely yours: its data, its content, and its access rule travel with it. A viewer
+  who may not see it simply doesn't — a clean gap, never a broken panel — and if one contribution ever
+  fails, the rest of the dashboard still renders. Remove the contributing module and its tile
+  disappears on its own, with nothing to clean up.
+
+  A first contribution ships with the built-in apps: the Settings app adds a "settings overrides" tile
+  to the Partners overview — a panel the Partners app was never edited to include.
+
 ## [0.18.2] - 2026-07-16
 
 A packaging refinement that completes the multi-app work from `0.17.6`: the SDK's built-in apps —
