@@ -15,6 +15,53 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.18.5] - 2026-07-17
+
+Two new commands make the shared business objects in your installation **visible**, and let a package
+**describe itself** for the coming marketplace. See how your modules connect today; get listing-ready for
+tomorrow.
+
+### Added
+
+- **`php artisan ui5:concept` — see what connects to what.** Run it with no argument to list every shared
+  business object (a *Concept* — a Partner, a Product, an Order) installed in your app. Name one to see its
+  details and, more usefully, the two sides of its graph: the modules that reach *into* it and the doorways
+  other modules contribute *out* from it. A quick, honest map of how your modules relate through the objects
+  they share.
+
+- **`php artisan ui5:describe` — publish your package's marketplace description.** Reads the classification
+  you declare on a module and writes it into your package's `composer.json`, so a marketplace listing can be
+  built from it **without installing the package**. Run it with `--check` in CI and it fails the build if the
+  description ever drifts from what your code actually declares — one source of truth, kept honest.
+
+- **Classify a module for the marketplace.** Three optional markers describe how a package should appear:
+  `#[Category('domain/capability')]` (where it lists, with an optional sales reference), `#[Tag('…')]`
+  (process facets that aid discovery), and `#[Media]` (a listing icon and image gallery from a convention
+  folder). Together with the Concepts your module defines, these become its marketplace record — declared in
+  your code, published on demand.
+
+## [0.18.4] - 2026-07-17
+
+A business object's screen now grows **cross-app doorways** on its own. Tell the platform that your module
+relates to a shared object — a Partner, say — and the Partner's screen offers a **"Related"** link straight
+into your module, with **no change to the app that owns the Partner**. It's the navigation companion to the
+dashboard contributions from `0.18.3`: ship a module later, and the connection simply appears.
+
+### Added
+
+- **Weave your module to a shared object, and its screen gains a doorway to you.** Declare the shared object
+  you relate to (a *Concept*) and the relationship (a *weave*); the object's screen renders a "Related" menu
+  with an entry into your module. The list is filtered to what the current user is actually allowed to open —
+  a doorway a user may not use simply isn't shown — and the app that owns the object is never edited to gain
+  it. Add another relating module next month and its doorway just shows up alongside the rest.
+
+- **A first connection ships with the built-in apps.** A Partner's screen now offers a **"Settings"** doorway
+  into the Settings app — a link the Partners app was never touched to add. Remove the relating module and the
+  doorway disappears with it.
+
+- **Every shared object carries a readable name** for these menus and for discovery, so a Concept shows up as
+  "Business Partner", not an internal identifier.
+
 ## [0.18.3] - 2026-07-16
 
 A tile or card from one module can now appear on **another module's dashboard** — the contributing
