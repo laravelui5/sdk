@@ -15,6 +15,43 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.0] - 2026-07-19
+
+Your installation gains a complete **settings administration** surface. Every setting an app
+declares becomes browsable, inspectable at each level — from the platform default down to one
+person's own preference — and editable in place with the right control for its type. Beneath it
+is a scoped configuration model with real authorization, so *who* may change *what*, and at
+*which* level, is enforced rather than assumed.
+
+### Added
+
+- **A multi-scope settings console.** Browse every setting by the app that owns it, and for any
+  setting see its value at each level that applies — the platform default, then tenant, site, and
+  a person's own — in one place. Create, edit, or reset an override at any level your authority
+  permits; the platform default is protected and stays the floor to fall back to.
+
+- **The right control for every value.** Editing shows the control a value's type calls for — a
+  switch for a flag, a number field, a date picker, or a picker for a value that points at a
+  business object — so values are entered correctly instead of typed as free text.
+
+- **Personal settings, and setting them on someone's behalf.** A setting marked personal resolves
+  per user, so each person carries their own preference. An administrator with enough authority
+  can set or clear a person's value for them — support-desk-grade — and every change records who
+  last made it.
+
+- **Write authority, enforced on the server.** Each write is checked three ways: may you touch
+  this setting at all, may you write at the level you chose, and — for a personal setting — may
+  you write it for another person. The console only ever offers what will actually be allowed.
+
+- **`php artisan ui5:intake` — onboard an installation in one step.** Establish the installation's
+  owner organization as a named, repeatable, idempotent command, run before `ui5:sync`. It keeps
+  exactly one owner per installation and makes a clean install a simple, ordered sequence.
+
+- **Open a shared object at its own screen, from anywhere.** The navigation companion to the
+  "Related" doorways from `0.18.4`: a link can carry a user straight to a shared object's own
+  screen — a Partner's detail, say — named only by the object and its key, with no route knowledge
+  on the calling side and no change to the app that owns it.
+
 ## [0.18.5] - 2026-07-17
 
 Two new commands make the shared business objects in your installation **visible**, and let a package
