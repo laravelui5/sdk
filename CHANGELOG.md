@@ -15,6 +15,25 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.2] - 2026-07-20
+
+Groundwork for **pickers that offer more than one list**. A value help — the picker a field opens
+to choose a business object — can now be defined with a declared shape and several **named lists**,
+and one module can add a list to a value help owned by another, the same marketplace pattern as
+dashboard contributions.
+
+### Added
+
+- **Contribute a named list to a value help.** Mark a data set with `#[ContributesScope]`, naming
+  the value help it joins and the list it provides. The set becomes that list, with no change to
+  the app that owns the value help. The set's own read permission carries over, so a list a user
+  may not read stays protected.
+
+- **Contributed lists are checked against the value help's shape.** A value help declares its shape
+  once — the columns a selection returns — and every contributed list is validated against it when
+  your app syncs. A list that doesn't match the shape is rejected then, so a mismatched contribution
+  is caught at build time rather than surfacing in front of a user.
+
 ## [0.19.1] - 2026-07-20
 
 Your data reads can now be **authorized**. Until now, any signed-in user who could reach a data
