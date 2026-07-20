@@ -15,6 +15,24 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.1] - 2026-07-20
+
+Your data reads can now be **authorized**. Until now, any signed-in user who could reach a data
+endpoint could read everything it served. You can now require a specific permission to read a
+given data set, and the server enforces it — a user without the permission is refused at the data
+boundary, not handed a silently empty list.
+
+### Added
+
+- **Read permissions for a data set.** Require a permission to read any read-only data set: a user
+  who holds it reads the set as before, and a user who doesn't is refused. Sets you don't mark stay
+  open, so nothing you already expose changes.
+
+- **Honest refusals, not empty results.** A denied read comes back as a clear refusal, so a user —
+  and your UI — can tell "you may not see this" apart from "there's nothing here." When a protected
+  set is pulled in alongside data a user *is* allowed to see, only the protected part is withheld:
+  the rest still loads, with a note about what was held back.
+
 ## [0.19.0] - 2026-07-19
 
 Your installation gains a complete **settings administration** surface. Every setting an app
