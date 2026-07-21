@@ -15,6 +15,23 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.20.0] - 2026-07-21
+
+Opens the **0.20 hardening line** — a round of per-surface polish that brings the completed core to a
+solid, dependable state on the way to `1.0`. This first release rounds out the Partners app and links
+it both ways with the Settings console.
+
+### Added
+
+- **See a partner's personalized settings at a glance.** A partner's detail page now lists every
+  setting that has been overridden for that partner — which setting, in which application, and its
+  current value and type — in one place. No more hunting to find what a given partner carries.
+
+- **Jump straight from an override to the setting.** Each entry links directly into the Settings
+  console at that exact setting, so you go from *"who has this override"* to managing it in a single
+  click. Together with the existing jump from a setting's owner back to the partner, the Partners and
+  Settings apps now connect **both ways**.
+
 ## [0.19.5] - 2026-07-21
 
 Finishes the scoped-picker story from `0.19.3`/`0.19.4`: a setting's chosen list now travels all the
