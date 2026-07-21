@@ -15,6 +15,23 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.20.1] - 2026-07-21
+
+A round of polish on the settings console, continuing the 0.20 hardening line.
+
+### Changed
+
+- **"Set by" shows a name, not an id.** A setting's provenance now names the person who set the value,
+  instead of showing an internal identifier.
+- **A tidier override editor.** The create/edit form now matches the shape of the other admin apps —
+  aligned label/value columns with the actions in the footer — and its value and partner pickers use the
+  standard in-field search affordance.
+
+### Fixed
+
+- **Model-backed setting types display correctly.** In a partner's settings overview, settings that
+  reference a business object showed their type as "?"; they now show the correct label.
+
 ## [0.20.0] - 2026-07-21
 
 Opens the **0.20 hardening line** — a round of per-surface polish that brings the completed core to a
