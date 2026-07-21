@@ -15,6 +15,18 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.20.2] - 2026-07-21
+
+More 0.20 hardening: the built-in help scaffolding now shows the supported way to wire
+context-sensitive (F1) help.
+
+### Fixed
+
+- **Correct guidance for context help.** The `ui5:doc` and `ui5:help` command help, and the
+  help-page starter template, pointed at a `#[Context(...)]` attribute that no longer exists. They now
+  point at the supported approach — wrapping the relevant controls in the `Context` control and giving
+  it the help page's id — so a new help page is wired correctly from the start.
+
 ## [0.20.1] - 2026-07-21
 
 A round of polish on the settings console, continuing the 0.20 hardening line.
