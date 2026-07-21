@@ -15,6 +15,23 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.3] - 2026-07-21
+
+Continuing the multi-list pickers from `0.19.2`: a setting that opens a picker can now name **which
+list** of that picker it draws from.
+
+### Added
+
+- **Point a setting at a specific list of its picker.** A value help can offer several named lists
+  (`0.19.2`); when you bind a picker to a setting, you now name the list the setting draws from — so
+  a setting backed by a multi-list picker opens straight to the right one (a "default approver"
+  drawing from *colleagues*, say, rather than every partner).
+
+- **The list is part of the binding, so it is never left ambiguous.** Naming a picker for a setting
+  now means naming its list as well. A binding that points at a multi-list picker without choosing a
+  list is refused rather than left half-specified, so a setting always resolves to one well-defined
+  list.
+
 ## [0.19.2] - 2026-07-20
 
 Groundwork for **pickers that offer more than one list**. A value help — the picker a field opens
