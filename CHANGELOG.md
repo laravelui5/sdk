@@ -15,6 +15,20 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.5] - 2026-07-21
+
+Finishes the scoped-picker story from `0.19.3`/`0.19.4`: a setting's chosen list now travels all the
+way to the picker it opens. When you edit a setting that points at a business object, the field opens
+its picker **to the list the setting declares** — read from the setting itself. So two settings backed
+by the same picker can offer different lists (one "your colleagues", another "everyone with a login")
+with no code, just each setting's configuration.
+
+### Added
+
+- **A setting's chosen list reaches its picker.** The named list a setting declares (`0.19.3`) is now
+  carried on the setting's own data, so its editor opens the picker to exactly that list. Same picker,
+  different settings, different lists — decided by configuration, not code.
+
 ## [0.19.4] - 2026-07-21
 
 The multi-list picker becomes **usable end-to-end**: a field can now open a picker **to a named
