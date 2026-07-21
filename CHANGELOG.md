@@ -15,6 +15,37 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.19.4] - 2026-07-21
+
+The multi-list picker becomes **usable end-to-end**: a field can now open a picker **to a named
+list**, and which list you may open — and which rows it holds — is decided and enforced on the
+server, never by the page that opened it.
+
+### Added
+
+- **Open a picker to a named list.** `LaravelUi5.openValueHelp({ namespace, scope })` opens the
+  shared picker for a **named list** (its `scope`). The server resolves that name to a real,
+  permission-checked data set and hands the picker the rows — the caller names *which list*, never
+  *which rows*, so a picker can't be talked into showing more than it should.
+
+- **A shared partner picker with two built-in lists.** One partner picker now offers **your
+  colleagues** (the people in your own organization) and **partners that have a login**. Each list
+  is a first-class, permission-gated set: a user who may not read a list is refused at the data
+  boundary, not handed an empty one.
+
+- **Scoped to who you are, not to what the page claims.** The "your colleagues" list is resolved
+  from your **signed-in identity**, never from an id the page passes in — so it always means *your*
+  organization and can't be pointed at someone else's. Lists that depend on a chosen subject
+  (rather than the signed-in user) are a distinct, explicitly-authorized kind; that difference is
+  now a first-class part of how a list is defined.
+
+### Changed
+
+- **A value help is a *shape*, not a list — BREAKING.** The former colleague picker is now the
+  general **partner picker**, and "colleagues" is one of its lists. Opening it takes a
+  `{ namespace, scope }` pair. If you opened the old colleague-picker namespace directly, switch to
+  the partner picker with the `colleagues` scope.
+
 ## [0.19.3] - 2026-07-21
 
 Continuing the multi-list pickers from `0.19.2`: a setting that opens a picker can now name **which
