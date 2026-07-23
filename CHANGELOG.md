@@ -15,6 +15,38 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.20.4] - 2026-07-23
+
+The closing polish on the 0.20 hardening line before `1.0`: the **LUX Weave** navigation attributes
+take their long-term shape, and cross-module "Related" links now work end to end.
+
+### Changed — BREAKING
+
+- **Two clear attributes for the two kinds of cross-module link.** Declaring how your module connects
+  to a shared business object (a *Concept*) is now split into two intention-revealing attributes,
+  replacing the single attribute with `in`/`out` flags:
+  - `#[ConceptEntry(concept, route)]` — *"my app is the home of this Concept"*: the one canonical way
+    in to its detail. A Concept has exactly one, enforced at build time.
+  - `#[Weave(concept, route, label, icon)]` — *"my app offers a related view of this Concept"*: a
+    doorway that shows up in that Concept's "Related" menu. A Concept can gather many.
+
+  The single front door and the many side doors can no longer be confused, and declaring a second
+  front door is now a build error instead of a silent surprise.
+
+### Fixed
+
+- **Cross-module "Related" links now navigate.** Choosing a related module from a hub's "Related" menu
+  now opens the target correctly; previously the navigation was rejected before it could dispatch.
+
+### Upgrading
+
+- Replace `#[Weave(…, in: true, route: '…')]` with `#[ConceptEntry(concept: '…', route: '…')]`.
+- Drop the `out: true` flag from your remaining `#[Weave]` declarations — they are outbound by
+  definition now.
+- Delete any route-less `#[Weave(…, in: true)]` — the separate "consumer" declaration is gone; a link
+  no longer needs one.
+- Run `php artisan ui5:sync`, then `php artisan ui5:cache`, to refresh the registry.
+
 ## [0.20.3] - 2026-07-23
 
 A small hardening fix on the 0.20 line: the default login provider is now cleanly decoupled from your
