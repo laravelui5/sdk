@@ -15,6 +15,18 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [0.20.3] - 2026-07-23
+
+A small hardening fix on the 0.20 line: the default login provider is now cleanly decoupled from your
+application's own `User` class.
+
+### Changed
+
+- **Login provider decoupling.** `EloquentLoginProvider` — the batteries-included default that maps a
+  partner to their sign-in — no longer names a specific host `User` type in its type hints; it continues
+  to resolve your configured auth model dynamically. This keeps the package free of any assumption about
+  your app's model namespace. No behavior change; safe to upgrade.
+
 ## [0.20.2] - 2026-07-21
 
 More 0.20 hardening: the built-in help scaffolding now shows the supported way to wire
