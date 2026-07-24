@@ -5,7 +5,7 @@
 
 **The productivity layer for enterprise OpenUI5 on Laravel.**
 
-Where [`laravelui5/core`](https://github.com/laravelui5/core) describes — apps, libraries, cards, dashboards, OData — the SDK operationalizes: it turns that static metadata into a living runtime. A database-backed registry, a time-aware permission engine, a lean shell with navigation, search and help, and prebuilt business modules — so teams build enterprise UI5 apps in a Laravel-native workflow, faster and with less ceremony.
+Where [`laravelui5/core`](https://github.com/laravelui5/core) describes the SDK operationalizes: it turns that static metadata into a living runtime. A database-backed registry, a time-aware permission engine, a lean shell with navigation, search and help, and prebuilt business modules. So teams build enterprise UI5 apps in a Laravel-native workflow, faster and with less ceremony.
 
 For documentation and usage examples, visit [laravelui5.com](https://laravelui5.com).
 
@@ -13,14 +13,19 @@ For documentation and usage examples, visit [laravelui5.com](https://laravelui5.
 
 ## Features
 
-- **Database-backed artifact registry** — Core's registry persisted, queryable, and cache-compiled for production.
-- **Time-aware RBAC** — abilities, roles, and groups resolved as `f(App, Actor, Timestamp)`; every grant time-bound; authorization enforced server-side and projected to the client.
-- **LeanShell runtime** — navigation, branding, identity, a command palette (CmdK), and context-sensitive help, assembled from configuration.
-- **Multi-locale help** — UUID-keyed topics (stable across refactoring), CommonMark rendering, and a full-text search index.
-- **Intent dispatch** — named, authorized cross-module navigation and actions, with a declarative semantic graph.
-- **Scoped settings** — configuration with precedence and per-user personalization, type-validated.
-- **Row-level data scoping** — fail-closed `#[Scoped*]` entity sets bound to the acting partner.
-- **Prebuilt modules & tooling** — Partners, Tenancy, and a synthetic test DSL for your own RBAC.
+Everything the SDK adds rests on a **keystone spine**: authorization, the platform runtime, partner identity, and tenancy. The full surface organizes into **seven pillars**.
+
+| Pillar | What's inside                                                                                                                                                                                                 |
+|:--|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Identity, security & platform** | Time-aware RBAC (`#[Access]` / `#[Act]` / `#[Read]`, resolved as `f(App, Actor, Timestamp)`), the database-backed artifact registry, the immutable `SdkContext` runtime, and partner identity                 |
+| **Runtime & data** | Registry sync to the database catalog, fail-closed row-level OData scoping, scoped settings with per-user personalization, and per-actor parameters                                                           |
+| **Interaction & dispatch** | One typed, transactional **action** contract for every write (OData stays read-only), named authorized intent dispatch, and impersonation                                                                     |
+| **Shell & UI composition** | The **LeanShell** (global navigation, command palette, dialogs, context help) and the **LUX Weave** layer that composes independent modules (shared value help, dashboard contribution, cross-app navigation) |
+| **Integration points** | Login, tenancy, address validation, data export, and code-list customizing — each a **port you bind your own provider to**; no forced third-party dependency                                                  |
+| **Content & tooling** | UUID-keyed, full-text multi-locale help, and the `ui5:*` command line for scaffolding, sync, and compilation                                                                                                  |
+| **Testing** | A scenario-based DSL that proves your RBAC against a **real database** — no mocks                                                                                                                             |
+
+The complete domain surface, each part's stability, and how it graduates live in [`ROADMAP.md`](./ROADMAP.md).
 
 ## Installation
 
@@ -50,7 +55,7 @@ composer require laravelui5/sdk
 
 ## Status & roadmap
 
-The SDK is on the `0.x` line while its contract surface stabilizes toward `1.0`. See [`CHANGELOG.md`](./CHANGELOG.md) for released versions and [`ROADMAP.md`](./ROADMAP.md) for what's planned and how each surface graduates from *Provisional* to *Frozen*.
+`laravelui5/sdk` reached **1.0** on 2026-07-23. The spine — identity, interoperability, and settings — is **Stable**: validated in our own applications and versioned semantically (a breaking change requires a major release). Each surface is honestly labelled **Provisional → Stable → Frozen**; see [`ROADMAP.md`](./ROADMAP.md) for what's planned and how each surface stabilizes, and [`CHANGELOG.md`](./CHANGELOG.md) for released versions.
 
 ## Issues & feedback
 

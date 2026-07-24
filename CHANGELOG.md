@@ -15,6 +15,69 @@ The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of t
 contract surface, with the seams frozen, several defects fixed, and the public APIs
 named for the long term.
 
+## [1.0.0] - 2026-07-24
+
+**The SDK's spine is complete.** `1.0` marks the point where identity, interoperability, and settings
+are done. The surfaces you build against are validated in real applications, and earn a stable promise.
+
+`1.0` does not mean every corner is frozen forever. It means every surface is **honestly labeled**. You
+always know what you can depend on today, what may still move with notice, and what is planned but not
+yet built. A small, genuinely stable spine under a larger, honestly-labeled body is more dependable than
+a premature wall-to-wall freeze. This distinction is deliberate.
+
+### What the SDK gives you
+
+The SDK takes the app you *declare* in Core and makes it *run* like enterprise software: authorized,
+personalized, multi-tenant ready, and able to compose with other people's modules. Your work stays on your
+domain, not the platform beneath it. Piece by piece:
+
+- **Identity, security & platform** — every app you register is gated by partner-validated, time-aware
+  permissions, so *who may open it, see a control, or run an action* is resolved from grants at request
+  time, never wired in by hand.
+- **Runtime & data** — your declared metadata becomes a live database catalog, your OData reads come back
+  already scoped to the caller, and settings personalize down to the user, team, app, or tenant.
+- **Interaction & dispatch** — every change goes through one typed, transactional action, while navigation,
+  intents, and impersonation all ride the same authorized dispatch.
+- **Shell & UI composition** — your app opens inside the LeanShell (global navigation, search, dialogs, and help)
+  and composes with other vendors' modules through LUX Weave, so a tile, a value help, or a "Related"
+  link can reach across module boundaries.
+- **Integration points** — is where your app meets the outside world: login, tenancy, address validation, and
+  export. You bind *your* provider to the SDK's contract, never locked to one vendor or made to carry a
+  dependency you didn't choose.
+- **Content & tooling** — context-sensitive help travels with the UI, and a command out of the `ui5:*` command line family
+  scaffolds, syncs, or compiles the whole thing.
+- **Testing** — and you prove your security model against a real database with the scenario DSL. No
+  mocks, because authorization is too important to fake.
+
+### The complete 1.0 surface — seven pillars
+
+The same seven pillars at a glance, their building blocks and each one's honest stability label:
+
+| Pillar | What's inside | Stability                                                     |
+|:--|:--|:--------------------------------------------------------------|
+| **Identity, security & platform** | Partner-validated, time-aware authorization (`#[Access]` / `#[Act]` / `#[Read]`); the SDK runtime and its seam to Core; partner identity | **Stable** |
+| **Runtime & data** | Registry sync to the database catalog; scoped OData reads; scoped settings & personalization; per-actor values | **Stable**                                                    |
+| **Interaction & dispatch** | The typed **action** contract — the authorized, transactional write path (OData stays read-only); intents; impersonation; the request edge | **Stable**                                                    |
+| **Shell & UI composition** | The **LeanShell** (navigation, search, dialogs, context, help); the **LUX Weave** interoperability layer; the dialog & value-help bases; the **Launchpad** | **Stable**                                                    |
+| **Integration points** — *bring your own provider* | Login / auth (a JetStream-style default); multi-tenant tenancy (bring your own DB-switching resolver; a standalone default ships); address validation (bind your licensed provider); data export (CSV built in, xlsx pluggable); code-list customizing — **no forced third-party dependency** | **Stable**                                                    |
+| **Content & tooling** | The UUID-keyed, full-text help system; the `ui5:*` command line | **Stable**                                                    |
+| **Testing** | The scenario-based security-test DSL | **Open by design**                                            |
+
+### How stability works
+
+Every surface carries one honest label — and at 1.0, every surface but the deliberately-open test DSL is
+**Stable**:
+
+- **Stable (soft-freeze)** — validated in our own production applications. The shape is settled and on
+  the public roadmap; any change is additive and announced. This is where the whole 1.0 spine sits.
+- **Open by design** — public, but deliberately reserved to evolve. At 1.0, this is the security-test DSL.
+
+**Why nothing is "frozen forever" yet — and why that is the point.** A Stable surface hardens into a
+full, semantically-versioned freeze once at least two independent teams have built on it: we don't lock a
+contract's final details until real outside use has proven them. A 1.0 with an honest soft-freeze is more
+dependable than one with a single secretly-shaky "frozen" promise. **The label you read today is the
+label we keep.**
+
 ## [0.20.4] - 2026-07-23
 
 The closing polish on the 0.20 hardening line before `1.0`: the **LUX Weave** navigation attributes
