@@ -4,16 +4,86 @@ All notable changes to `laravelui5/sdk` are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## Pre-1.0 versioning
+## Versioning
 
-While the SDK is on the `0.x` line and its contract surface stabilizes toward `1.0`,
-a breaking change may ship in a **minor or patch** release. Every such change is
-flagged **BREAKING** inline so you can coordinate the upgrade deliberately. Full
-semantic versioning begins at `1.0`.
+Since `1.0.0` (2026-07-24) the SDK follows semantic versioning strictly: additions ship in a
+minor, fixes in a patch, and **a breaking change requires a major**. You can pin `^1.0` and
+upgrade without reading ahead.
 
-The `0.16.x` line is the pre-1.0 **stabilization sweep**: a complete review of the
-contract surface, with the seams frozen, several defects fixed, and the public APIs
-named for the long term.
+*Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
+patch release, flagged **BREAKING** inline. That no longer applies.*
+
+## [1.1.0] - 2026-08-18
+
+**The Launchpad now shows a tile only when the user may actually open the app behind it.**
+
+Until this release the launcher showed every launch tile to every signed-in user, whatever their
+permissions. Clicking one you were not authorized for came back with *Not authorized*. That cost
+you twice: a dead end for the user, and a launcher that told everyone which applications exist in
+your installation — including the ones they have no business seeing.
+
+A launch tile is now rendered only if the acting user may open its target app. The decision is
+made by the same access check that authorizes the click, reading the `#[Access]` gate you already
+declared on the app. What the launcher offers and what the click permits can no longer disagree.
+
+**There is nothing to declare and nothing to configure.** It works off your existing `#[Access]`
+attributes. An app without an `#[Access]` gate is open, as before, and its tile stays visible to
+everyone.
+
+Do note the behaviour change: tiles for gated apps will disappear for users who lack the grant.
+That is the point of the release, but it is a visible change on a running installation — if a tile
+you expect vanishes, the grant is missing, not the tile.
+
+**If you write launch tiles:** the gate reads the navigation target from the tile itself, so there
+is no second place to declare it and nothing to keep in sync. One shape is not yet covered — a
+launch tile that resolves slot values before it renders stays visible, because its target is not
+known early enough to decide on. If you have one, tell us; it is the next case we intend to close.
+
+No migration, no sync, no republished assets. Take the release.
+
+## [1.0.2] - 2026-08-17
+
+**The shell now loads the Core UI5 library properly, instead of pulling two of its modules by
+hand.**
+
+Every page start fetched `LaravelUi5.js` and `Connection.js` as separate requests, because asking
+for a module by name does not tell UI5 to load the library it belongs to — and only loading the
+library fetches its `library-preload.js`. The shell now loads the library first. One request
+replaces two, the rest of the library comes along for free, and anything else that reaches for it
+later is already served.
+
+A failed library load also reports to the console now. Previously it left the shell half-started
+and silent, which is the worst way for a failure to present itself.
+
+No API change. Nothing to do on your side beyond taking the release and republishing assets:
+
+```bash
+php artisan ui5:publish --force
+```
+
+## [1.0.1] - 2026-08-17
+
+**Fixes a migration failure on MySQL and MariaDB.**
+
+Adopting `1.0.0` and running `php artisan migrate` failed while creating the partner-addresses
+table. Its `partner_id` column was declared one integer width wider than the `id` column it
+references, and MySQL and MariaDB reject a foreign key between mismatched widths (error 3780).
+The column now matches. Nothing else changes, and no contract moves — if your migrations already
+ran, this release is a no-op for you.
+
+SQLite does not enforce that match, which is why the defect survived a test suite and reached a
+release. We have added the gap itself to the roadmap, not just the fix.
+
+**If you already hit this**, the failed run left the table behind *without* recording the
+migration, so a plain retry fails on the existing table. Drop it, then migrate again:
+
+```sql
+DROP TABLE sdk_partner_addresses;
+```
+
+```bash
+php artisan migrate
+```
 
 ## [1.0.0] - 2026-07-24
 
