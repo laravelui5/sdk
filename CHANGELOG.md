@@ -13,6 +13,27 @@ upgrade without reading ahead.
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
 
+## [1.1.1] - 2026-09-11
+
+**Three entries in the shell's navigation rail showed a placeholder instead of their label.**
+
+The Settings, Partners and Launchpad apps that ship with the SDK had gaps in their translation
+bundles. Where a label was missing, the rail printed the key it was looking for —
+`Missing i18nKey route.settings.label` — and the Relationships entry in Partners carried the
+tooltip meant for Groups. All three apps now ship complete labels, and the Launcher and Registry
+dashboards have names in the rail for the first time. The Partners icon now comes from the same
+icon set as the other two.
+
+No API change, no migration. After updating, rebuild the navigation cache, which still holds the
+old placeholders:
+
+```bash
+php artisan ui5:nav
+```
+
+The same label convention applies to your own apps — see
+[Shell › Navigation](https://laravelui5.com/sdk/shell/navigation).
+
 ## [1.1.0] - 2026-08-18
 
 **The Launchpad now shows a tile only when the user may actually open the app behind it.**

@@ -44,10 +44,10 @@ Add the repository to your `composer.json`:
 }
 ```
 
-Bind your license credentials and install:
+Bind your account email and install token, then install:
 
 ```bash
-composer config http-basic.packages.pragmatiqu.io your-email@example.com your-license-key
+composer config http-basic.packages.pragmatiqu.io your-email@example.com YOUR-INSTALL-TOKEN
 composer require laravelui5/sdk
 ```
 
