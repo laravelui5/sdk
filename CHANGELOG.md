@@ -13,6 +13,140 @@ upgrade without reading ahead.
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
 
+## [1.2.0] - 2026-09-14 — The documentation, written against the code
+
+**Every page of the SDK documentation was rewritten from the code, and this release fixes what that
+turned up.**
+
+Writing each page meant checking every sentence against what the code actually does. Where the two
+disagreed, we fixed the code — or, where a fix has to wait, the page now says so. The pass found
+defects no test had caught: a command palette that never searched, a shell that lost all its hotkeys
+to one failed request, a gate that stood open until the next sync. It also drew the line between what
+you build on and what is machinery, which is why the
+[API reference](https://laravelui5.com/api/sdk/index.html) is public from this release on.
+
+A minor. It requires **Core 2.11**. Read *What you may notice* before you upgrade.
+
+### Upgrading
+
+```bash
+composer update laravelui5/sdk laravelui5/core
+php artisan ui5:sync
+php artisan ui5:help --all
+php artisan ui5:nav
+php artisan ui5:publish
+```
+
+`ui5:nav` matters this time: a navigation cache written by an earlier release cannot be read, and
+this rebuilds it.
+
+### What you may notice
+
+- **A gate you declared protects from the first request, not from the next sync.** If an `#[Access]`
+  or `#[Act]` gate was in the code but `ui5:sync` had not run yet, the request went through as if
+  there were no gate. It now fails with an error that names `ui5:sync`. If your deploy runs the sync,
+  you see no difference. If it does not, it now fails loudly where it used to fail open.
+- **An actor's date value is a string.** `ActorParameterReaderInterface::get()` returns a date as
+  `Y-m-d`, a date-time as ISO-8601 and a decimal as a numeric string — the form every other source
+  delivers since Core 2.11. Code that called a `Carbon` method on it parses first now.
+- **Renaming a setting deletes the old key's overrides.** When a `#[Setting]` is removed, `ui5:sync`
+  now deletes its overrides at every scope. Before, it left them behind, still answering reads but
+  impossible to see or remove. A rename is a removal plus a new declaration, so copy the values in the
+  same deployment if you need them. `ui5:sync --dry` lists every row before it goes.
+- **App settings reach the browser.** `context.json` now carries the settings of the open app for
+  anyone who may open it. A setting is no place for a secret.
+- **`ui5:intake` asks instead of inventing.** `--name` and `--email` are required, and nothing else is
+  filled with a demo value any more.
+- **The default tenant is your platform owner.** `DefaultTenantResolver` used to return a fictional
+  company. It now returns the organisation `ui5:intake` created, and throws
+  `MissingSystemActorException` if there is none.
+- **A place without a postal address needs coordinates.** Saving one without latitude and longitude
+  is refused, and on any address the two travel together or not at all.
+- **A slot's generated setting can no longer be overridden through Settings.** Such an override was
+  accepted and then never read. The settings writer and the Settings app now refuse it with a 422. A
+  person's slot values are set in the Partners console, as before.
+
+### Added
+
+- **Every artifact reads its app's settings.** `SdkContext::appSetting($key)` and `appSettings()` hold
+  the settings of the app an action, resource or card belongs to, resolved for the acting partner.
+  Until now, code saw only its own artifact's settings. See
+  [Reading and writing settings](https://laravelui5.com/sdk/settings/reading-and-writing).
+- **Settings in the browser.** `context.json` delivers the same app settings, so
+  `LaravelUi5.getSetting()` works in the shell. Before, it threw.
+- **Both kinds of address in the Partners console.** The address form now captures a place without a
+  postal address — a site, a plot — as a description with coordinates. Editing such a row used to
+  erase it.
+
+### Fixed
+
+**Shell and navigation**
+
+- **The command palette (Cmd+K) searches, and opens what you pick.** The search term never reached
+  the server, and choosing a result did nothing.
+- **One failed request no longer takes every hotkey with it.** Cmd+K, Cmd+B and F1 are bound before
+  anything that can fail. Each part of the shell fails on its own and says so in the console. F1 opens
+  even without a help index and tells you to run `ui5:help --all`.
+- **An upgrade now reaches the browser.** The shell bundle sat under a fixed URL, so browsers and
+  proxies kept serving the old one. It is served from the package now, under a URL that carries the
+  SDK version. `public/sdk` keeps only the fonts and the fallback avatar.
+- **A fresh install shows a logo.** `ui5:publish` seeds a placeholder logo for the sidebar and the
+  login screen, and never overwrites one that is already there. How to replace it is described in
+  [Shell › Navigation](https://laravelui5.com/sdk/shell/navigation).
+- The Launchpad's heading is translated, and two Partners lists no longer log a type error for every
+  row.
+
+**Settings**
+
+- Array settings are validated element by element instead of cast, so `"false"` in a list of flags no
+  longer becomes `true`.
+- `DateTime` and `Decimal` settings can be overridden. Before, the write failed with an internal
+  error.
+- A value the Settings console refuses answers 422, not 500.
+
+**Security and testing**
+
+- **`ui5:explain` reports all four ability types, led by Access**, with the assignment id behind each
+  grant and your real tenant. It used to leave out Access — the question it is usually run for.
+- **Scoped entity sets resolve their rows for the context's moment**, not the server clock. In a
+  normal request the two are the same; it matters to code that builds a context for another point in
+  time.
+- **The test DSL's `can()` answers every ability type**, See included:
+  `can('see.<view>.<control>')`. It used to know Act only. `resolve()` no longer takes a contributor
+  class; a test that still passes one keeps running. See
+  [Testing Authorization](https://laravelui5.com/sdk/security/testing).
+
+**Commands**
+
+- `ui5:sync`, `ui5:cache` and `ui5:nav` run with the cached registry bound, as the deployment page
+  recommends. They used to refuse.
+- `ui5:nav` writes a cache that can be read again. The old one could not, and the command reported
+  success anyway.
+- `ui5:doc` checks the module name against the registry. A typo now stops with the list of modules
+  instead of writing a document nobody will ever read.
+- Six command manuals (`--help`) described behaviour the command does not have. They are corrected,
+  and `ui5:slot` has a manual now.
+
+**Licensing**
+
+- The bundled SAP 72 fonts now ship with their Apache 2.0 licence and notice.
+
+### Deprecated
+
+Both are removed in 2.0:
+
+- `ui5:help --cache` and `CacheProducer`. The file they write is read by nothing.
+- `AuthenticateOData`. Core's `EnsureODataAuthenticated` answers with the same 401 and is the one to
+  use.
+
+### What you can build on
+
+This release marks every class that is machinery rather than contract as `@internal` — more than 250
+of them, domain by domain. Nothing changes in behaviour. What changes is that you get a clear answer:
+the [API reference](https://laravelui5.com/api/sdk/index.html) shows the public surface only. A class
+your `config/ui5.php` names stays public, and so do all contracts, attributes, models, enums and the
+test DSL. Where a docblock described behaviour the code does not have, it is corrected.
+
 ## [1.1.1] - 2026-09-11
 
 **Three entries in the shell's navigation rail showed a placeholder instead of their label.**
