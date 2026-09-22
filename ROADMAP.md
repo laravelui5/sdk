@@ -51,6 +51,19 @@ independent consumers.
 - ⏳ Not started — queued
 - ⚠️ Blocked — waiting on external dependency
 
+## Known gaps
+
+The documentation describes the **target** state of each surface, so a page may promise behaviour a
+release has not caught up with yet. Those places are marked **planned** and are listed here.
+
+| Gap | Today | Queued |
+|:---|:---|:---|
+| **Navigation visibility** | The shell's navigation shows every entry to every signed-in actor — the projector matches a shape the tree does not have. Access is still enforced when an app opens, so this is a visibility leak, not an access hole | Entries an actor may not open disappear from the menu, as the documentation describes |
+| **Command palette and open apps** | An app without an `#[Access]` gate never appears in the palette, although every signed-in partner may open it | "No gate" means open, consistently — in the palette as in Weave and on the Launchpad |
+| **Impersonation and the partner resolver** | Starting an impersonation does not ask whether the target partner resolves; if it does not, every following request fails until sign-out | The attempt is refused up front, and a session that reaches that state can free itself |
+| **Translating shell labels** | A Weave doorway's `label` is rendered as written; the attribute still calls it an i18n key | One decision for the shell's i18n contract across Weave, concepts and navigation. Until then: write plain text |
+| **App titles in the shell** | The Settings app shows its namespace where a title belongs, and the command palette lists raw identifiers | Titles everywhere |
+
 ## Following along
 
 - Releases and breaking-change notes: [`CHANGELOG.md`](./CHANGELOG.md).
