@@ -7,11 +7,87 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Versioning
 
 Since `1.0.0` (2026-07-24) the SDK follows semantic versioning strictly: additions ship in a
-minor, fixes in a patch, and **a breaking change requires a major**. You can pin `^1.0` and
+minor, fixes in a patch, and **a breaking change requires a major**. You can pin `^2.0` and
 upgrade without reading ahead.
 
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
+
+## [2.0.0] - 2026-10-27 — Audited, in the user's language, in two packages
+
+**Every change people make is recorded, every text speaks the user's language, and the SDK knows whose installation
+it runs.**
+
+2.0 turns the spine of 1.x into a platform you can put in front of an auditor: who changed what, when and in which
+run, kept append-only; messages, labels and master data in the language of the person reading them; and one clear
+answer to who operates the installation, in place of the old system actor. The SDK now ships as two packages, the
+code and its tables, released together under one version.
+
+A major. It requires **Core 6** and **OData 3.2**, and `laravelui5/auth` **0.5** where you use it.
+
+### Installing
+
+2.0 is installed fresh, not upgraded from 1.x. A new database runs:
+
+```bash
+composer require laravelui5/sdk:^2.0
+php artisan migrate
+php artisan ui5:intake --name="Acme GmbH" --email=office@acme.test
+php artisan ui5:sync
+php artisan ui5:tenant --operator
+php artisan ui5:cache && php artisan ui5:nav
+php artisan ui5:help --all
+php artisan ui5:publish --force
+```
+
+`laravelui5/sdk-db`, the SDK's tables, comes with the SDK at the same version. Update the two together with
+`composer update laravelui5/sdk -W`.
+
+### The audit
+
+- **The change log.** Every change to a model you mark `#[Audited]` is recorded inside the same transaction: one head
+  per run — who, from where, which action, command or job — and one position per changed field, with the old and the
+  new value. Nothing is ever deleted from it.
+- **Four logs beside it:** sign-ins, impersonations and refusals; refused forms (off by default, because it holds
+  what people typed); the messages your code logs on purpose; and every report and export served. The operator sets
+  how long each is kept, in the Settings app, and `ui5:prune` clears what is older.
+- **Writes go through units of work.** An action's handler, an audited command and an audited job run their writes in
+  one transaction for one actor. A write that bypasses them fails a test. `ui5:unit`, `ui5:command` and `ui5:job`
+  scaffold them, and a handler can run from a job or a command too.
+- **Migrations and seeders are recorded** when they write audited data, under the installation's automation actor.
+
+### In the user's language
+
+- Ability, role and setting titles, Customizing rows, app titles, rail labels and Weave menus come from your module's
+  translation files, in the language of the request.
+- What the server says — an action's answer, the reason an intent was refused — is a key resolved on the server.
+- OData filters, sorts and searches on the translated text, so a list sorts in the user's language.
+- Your own master data can carry further languages per field: `#[Translatable]` and `HasTranslations`, with the base
+  language kept in the column.
+- `ui5:i18n` lists every missing key before a deploy; `ui5:sync` stops on one.
+
+### The installation
+
+- **Who operates the installation is declared**, in a generated `app/Installation.php`, and written by `ui5:intake`.
+  `ui5:tenant` writes the tenant and its first administrator.
+- **The system actor is gone.** What nobody started by hand — the sync, scheduled jobs — runs as the automation
+  actor, a setting the operator controls.
+
+### Building with the SDK
+
+- **Route parameters sit on the action**, beside its verb, handler and request (Core 6). A handler that still
+  carries `#[Parameter]` stops the registry at boot, with a message that says where it belongs.
+- **The SDK has its own UI5 library**, `com.laravelui5.sdk`, for the help `Context` control, the Weave menu and the
+  shell's texts. An app that runs in the shell lists it in its resource namespaces.
+- **`ui5:sync` checks before it writes.** While code and data disagree — a setting removed while values still use
+  it, say — it names each blocker and writes nothing; `ui5:ready` runs the check on its own.
+- **Configuration merges deep**: your `config/ui5.php` states only what differs from the SDK's defaults.
+
+### Fixed along the way
+
+Every gap the previous roadmap listed is closed: the shell's navigation and the command palette show what an actor
+may open, and only that; an impersonation of a partner the app cannot resolve is refused before it starts; shell labels are
+translated; every app shows its title, not its namespace.
 
 ## [1.2.0] - 2026-09-14 — The documentation, written against the code
 
