@@ -7,11 +7,70 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Versioning
 
 Since `1.0.0` (2026-07-24) the SDK follows semantic versioning strictly: additions ship in a
-minor, fixes in a patch, and **a breaking change requires a major**. You can pin `^2.0` and
+minor, fixes in a patch, and **a breaking change requires a major**. You can pin `^3.0` and
 upgrade without reading ahead.
 
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
+
+## [3.0.0] - 2026-11-04 — Modules offer each other services
+
+**One module can now offer another an operation or a service, and the SDK guards every call.**
+
+3.0 is the release that lets modules from different authors work together without reaching into each other's tables. A module declares what it offers — a single operation, *post a document*, or a service with several methods — and another module declares what it uses and takes it from the registry, checked against the person acting. Around it, the SDK follows Core's last two majors: the version belongs to the module, and every title is the text you mean, translated in your bundle. Stored files get one address, the Launchpad shows its catalogue, and two apps read the logs.
+
+A major. It requires **Core 8** and **OData 5**, and `laravelui5/auth` **0.7** where you use it.
+
+### Installing
+
+3.0 is installed fresh, not upgraded from 2.x: its tables changed in place. A new database runs:
+
+```bash
+composer require laravelui5/sdk:^3.0
+php artisan migrate
+php artisan ui5:intake --name="Acme GmbH" --email=office@acme.test
+php artisan ui5:sync
+php artisan ui5:tenant --operator
+php artisan ui5:cache && php artisan ui5:nav
+php artisan ui5:help --all
+php artisan ui5:publish --force
+```
+
+`laravelui5/sdk-db` comes with the SDK at the same version; update the two together with `composer update laravelui5/sdk -W`.
+
+### Bringing your modules along
+
+1. **The version moves to the module.** Take `VERSION` off your commands, jobs, units of work, dialogs and value helps, and declare it once on the module. The registry stops at boot while an artifact still carries one, and says which module's version applies.
+2. **Titles are the text you mean.** Write `TITLE = 'Add group'` and translate it in your bundle under the artifact's namespace: `com.acme.billing.actions.add_group=Gruppe anlegen`. A key of the 2.x form, `actions.<namespace>`, drops its prefix. Dashboard groups and charts need their key too; `php artisan ui5:doctor` lists every one that is missing.
+3. **A launch tile names its capability alone:** `#[Launchpad('data_management')]`.
+4. **Settings sit on the command or job**, at the operator's level, not on a unit of work.
+5. **Put `php artisan ui5:describe --check` into CI.** It fails when a declaration is not valid.
+
+### Released services
+
+- **Offer an operation or a service.** An operation is one verb, always guarded with `#[Call]` and run inside the caller's transaction; a service is a facade with several methods, guarded where it writes. Each is a small declaration that names its interface and its handler. `php artisan ui5:service Billing/PostDocument --role=clerk` scaffolds all three.
+- **Use one from another module.** Declare it with `#[Uses]`, take it with `getService()`, call the interface. The call is checked against the person acting; a refusal answers 403 and is recorded in the security log.
+- **Release events and what may be read.** `#[BusinessEvent]` marks an event other modules may listen to; `#[ReadSurface]` names the columns of your model another module may read, with a version promise. Everything else stays yours to change.
+- **`ui5:describe` shows it all**, module by module — Concepts, contributions, value helps, dialogs, operations and services, launch tiles — and writes nothing.
+
+### Stored files
+
+- **One address for every stored file**, `ui5/files/{id}`. Your package answers who may read which file; the SDK delivers it: PDFs and pictures shown in place, everything else downloaded, SVG and HTML never run in the browser, large files in ranges, cloud storage through a short-lived link. Every read is recorded in the report log.
+
+### The Launchpad
+
+- **One panel per capability**, in the order of the catalogue, titled in the user's language. A tile on a capability the catalogue does not know is hidden, and `ui5:describe --check` names it.
+
+### The logs, readable
+
+- **The Audit app** shows an auditor the change log and the report log: the changes with their filters, one change with every field, the history of a record, every report, export and file served.
+- **The Support app** shows support the sign-ins and refusals, the business messages and the refused input, and everything one run left behind, by its correlation key.
+
+### Fixed along the way
+
+- A refused personal value — a slot that is gone, a value of the wrong type — answers with a message that says why, instead of a server error.
+- A soft-deleted record keeps its translations, and comes back with them.
+- `ui5:help` reports a broken document or image path by name instead of stopping, and removes the output of a document that no longer exists.
 
 ## [2.0.0] - 2026-10-27 — Audited, in the user's language, in two packages
 
