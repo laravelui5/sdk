@@ -13,6 +13,33 @@ upgrade without reading ahead.
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
 
+## [3.1.0] - 2026-11-08 — A library that serves data is read under the SDK's rules
+
+**A library can now serve data to every app that uses it, and the SDK reads it exactly as it reads an app.**
+
+Core 8.1 lets a library be an OData service: data that every app of a package shares, such as code lists, is served once by the package's library, and each app that uses the library gets it as a model. 3.1 brings these services under the SDK. A request to a library's data now carries the person acting, the tenant and the language, and the read gate decides for the library as it does for an app.
+
+A minor. It runs on **Core 8.0 and 8.1**; a library that serves data needs Core 8.1.
+
+### Upgrading
+
+```bash
+composer update laravelui5/sdk -W
+```
+
+`laravelui5/sdk-db` moves to 3.1.0 with it and brings no new migration. Nothing in your modules changes.
+
+> **Built a data library on SDK 3.0 with Core 8.1?** Upgrade before you rely on its read rules. Under 3.0 such a request runs without the SDK's context: signing in is still required, but a `#[Read]` on the library's sets does not apply.
+
+### What changes
+
+- **A library is gated like an app.** Its `#[Access]` stands where an app's would. A library usually carries none, because its data is meant for every app that uses it, so its sets are open to every signed-in partner. A set with its own `#[Read]` is read by that ability alone, as in an app.
+- **The request knows who is asking.** Scoped entity sets, settings and the request's language work in a library's service as in an app's.
+
+### Why
+
+The read gate answers one question: who may read what, at this moment. A service that the gate cannot see answers it by default, and a default is not a decision. Every service that belongs to a module now gets the same context, so the answer is always the SDK's.
+
 ## [3.0.0] - 2026-11-04 — Modules offer each other services
 
 **One module can now offer another an operation or a service, and the SDK guards every call.**
