@@ -13,7 +13,7 @@ upgrade without reading ahead.
 *Historical note for the `0.x` line: before `1.0`, a breaking change could ship in a minor or
 patch release, flagged **BREAKING** inline. That no longer applies.*
 
-## [3.1.0] - 2026-11-08 — A library that serves data is read under the SDK's rules
+## [3.1.2] - 2026-11-08 — A library that serves data is read under the SDK's rules
 
 **A library can now serve data to every app that uses it, and the SDK reads it exactly as it reads an app.**
 
@@ -27,7 +27,7 @@ A minor. It runs on **Core 8.0 and 8.1**; a library that serves data needs Core 
 composer update laravelui5/sdk -W
 ```
 
-`laravelui5/sdk-db` moves to 3.1.0 with it and brings no new migration. Nothing in your modules changes.
+`laravelui5/sdk-db` moves to 3.1.2 with it and brings no new migration. 3.1.2 is the first release of the 3.1 line; there is no 3.1.0 or 3.1.1 to install. Nothing in your modules changes.
 
 > **Built a data library on SDK 3.0 with Core 8.1?** Upgrade before you rely on its read rules. Under 3.0 such a request runs without the SDK's context: signing in is still required, but a `#[Read]` on the library's sets does not apply.
 
